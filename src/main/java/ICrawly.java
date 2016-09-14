@@ -6,6 +6,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -16,11 +18,9 @@ import java.util.List;
  */
 public class ICrawly<T> {
     private HtmlUnitDriver driver = new HtmlUnitDriver();
+    WebDriverWait wait = new WebDriverWait(driver, 15);;
     private static Logger logger = Utilities.getLogger(ICrawly.class);
 
-    public ICrawly(){
-        driver.setJavascriptEnabled(true);
-    }
 
     public List<T> get(String url, Class clazz) throws InstantiationException, IllegalAccessException {
         getUrl(url);
@@ -44,6 +44,8 @@ public class ICrawly<T> {
                 field.setAccessible(true);
                 Element elementAnnotation = field.getDeclaredAnnotation(Element.class);
                 if (elementAnnotation != null) {
+                    //SG: TODO: Lower line should made to work before javascript support is turned on.
+                    //wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector(elementAnnotation.selector())));
                     WebElement fieldElement;
                     if (elementAnnotation.selector().isEmpty()){
                        fieldElement = element;

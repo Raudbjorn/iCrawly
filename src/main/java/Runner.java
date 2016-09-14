@@ -6,11 +6,11 @@ import java.util.List;
 public class Runner {
 
     public static void main(String[] args) throws IllegalAccessException, InstantiationException {
-        ICrawly<BlandAd> crawler = new ICrawly<>();
-        List<BlandAd> headlines = crawler.get("https://bland.is/solutorg/raftaeki/?categoryId=6", BlandAd.class);
-        for (BlandAd ad : headlines) {
-            System.out.println("text: " + ad.getTitle());
-            System.out.println("link: " + ad.getLink());
+        ICrawly<Headline> crawler = new ICrawly<>();
+        List<Headline> headlines = crawler.get("www.mbl.is", Headline.class);
+        for (Headline headline : headlines) {
+            System.out.println("text: " + headline.getText());
+            System.out.println("link: " + headline.getLink());
         }
     }
 }
